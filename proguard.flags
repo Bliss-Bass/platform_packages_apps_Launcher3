@@ -61,3 +61,11 @@
 -keep class com.android.launcher3.lineage.trust.** {
   *;
 }
+
+# Ensure runtime-visible annotations queried with reflection are kept.
+# TODO(b/212623640): Move these rules to the `PluginCoreLib` target after
+# resolving inheritance of java_library Proguard rules.
+-keep interface com.android.systemui.plugins.annotations.** {
+    *;
+}
+-keep,allowshrinking,allowoptimization,allowobfuscation @com.android.systemui.plugins.annotations.** class *
