@@ -891,7 +891,9 @@ public class TouchInteractionService extends Service
             return;
         }
 
-        if (RestoreDbTask.isPending(this) || !mDeviceState.isUserSetupComplete()) {
+        boolean disableRecents = SystemProperties.getBoolean("persist.bliss.disable_recents", false);
+
+        if (RestoreDbTask.isPending(this) || !mDeviceState.isUserSetupComplete() || disableRecents) {
             // Preloading while a restore is pending may cause launcher to start the restore
             // too early.
             return;
