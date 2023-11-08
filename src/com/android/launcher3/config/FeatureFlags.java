@@ -165,7 +165,7 @@ public final class FeatureFlags {
             "Always use hardware optimization for folder animations.");
 
     public static final BooleanFlag ENABLE_ALL_APPS_EDU = getDebugFlag(
-            "ENABLE_ALL_APPS_EDU", true,
+            "ENABLE_ALL_APPS_EDU", false,
             "Shows user a tutorial on how to get to All Apps after X amount of attempts.");
 
     public static final BooleanFlag SEPARATE_RECENTS_ACTIVITY = getDebugFlag(
