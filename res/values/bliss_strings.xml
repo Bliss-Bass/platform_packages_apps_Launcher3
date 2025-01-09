@@ -229,12 +229,12 @@
     <string name="quick_event_rom_intro_welcome">Welcome to Bliss!</string>
     <string name="quick_event_rom_intro_welcome_ext">Blissful times!</string>
     <string-array name="welcome_message_variants">
-        <item>Thank you for choosing us</item>
-        <item>Loving us? Send us a beer</item>
-        <item>Toxic Rom Ever.</item>
+        <item>Thank you for choosing our OS</item>
+        <item>Loving us? Make a post about it!</item>
+        <item>Best OS Ever!!!</item>
         <item>Say hi to us on Telegram</item>
-        <item>Tap here to begin</item>
-        <item>We love you 3000</item>
+        <item>Tap here for inspiration</item>
+        <item>Share the Bliss</item>
     </string-array>
 
     <!-- QuickSpace: QuickEvent: Greetings -->
@@ -369,43 +369,34 @@
     </string-array>
     <string-array name="quickspace_psa_random">
         <item>Ignorance is Bliss</item>
-        <item>Is it time to flash another update already?</item>
         <item>Make peace, not war</item>
         <item>Oh hey, what\'s up?</item>
         <item>Focus on your tasks</item>
-        <item>How many screenshots do you take?</item>
-        <item>Open goodness with crDroid</item>
+        <item>Also check out our other projects on blisslabs.org</item>
         <item>Spread love, not havoc</item>
-        <item>We didn\'t start the fire!</item>
         <item>Time for some good music</item>
-        <item>\u003C\u003C\u003C\u003C\u003C\u003C\u003C HEAD</item>
-        <item>You need Bliss Premium to see this</item>
-        <item>Remember the Lineage of the Unicorn</item>
-        <item>Enjoy Xtended battery life</item>
-        <item>Starting from the ground zero</item>
-        <item>We love you 3000</item>
-        <item>Delicious even without Sushi</item>
         <item>Do something nice today</item>
-        <item>This is ain\'t Pixel Experience, isn\'t it?</item>
-        <item>No illusions, welcome to reality!</item>
         <item>Thank you for your support</item>
-        <item>No festival for Derps - only perfection!</item>
-        <item>One of the buildbot\'s best picks</item>
-        <item>Sanity for your Paranoia</item>
-        <item>Try Ice Cold desserts</item>
         <item>What a lovely experience, isn\'t it?</item>
-        <item>Evolution is a myth, right?</item>
-        <item>You are what you flash, don\'t be Potato</item>
         <item>What\'s on your mind?</item>
-        <item>Expecto Patronum</item>
-        <item>Wubba Lubba Dub Dub</item>
-        <item>Winner Winner ....?</item>
-        <item>rm -rf \/</item>
-        <item>Pringles aren\'t actually potato chips..</item>
         <item>Remember to check device\'s battery level!</item>
         <item>Check your email/messages.</item>
         <item>Check your to-do list if you have one.</item>
         <item>You can disable quickspace via home settings.</item>
+        <item>Be the change you want to see.</item>
+        <item>Believe in yourself.</item>
+        <item>Success begins with a single step.</item>
+        <item>Stay positive, work hard, make it happen.</item>
+        <item>Life is what you make it, so make it count.</item>
+        <item>Stay focused, stay determined, stay unstoppable.</item>
+        <item>You are the author of your own story.</item>
+        <item>Strive for progress, not perfection.</item>
+        <item>Every day is a new beginning; make it a great one.</item>
+        <item>Inspire others by being your authentic self.</item>
+        <item>Your attitude determines your direction.</item>
+        <item>Great things never come from comfort zones.</item>
+        <item>You have the power to create your own destiny.</item>
+        <item>Happiness is a choice; choose it every day.</item>
     </string-array>
 
     <!-- QuickSpace: QuickEvent: Weather -->
