@@ -184,7 +184,7 @@ public final class FeatureFlags {
             "Allow user to toggle minimal device mode in launcher.");
 
     public static final BooleanFlag ENABLE_TASKBAR_POPUP_MENU = getDebugFlag(
-            270392477, "ENABLE_TASKBAR_POPUP_MENU", true,
+            270392477, "ENABLE_TASKBAR_POPUP_MENU", false,
             "Enables long pressing taskbar icons to show the popup menu.");
 
     public static final BooleanFlag ENABLE_TWO_PANEL_HOME = getDebugFlag(270392643,
@@ -328,7 +328,7 @@ public final class FeatureFlags {
             "Use a single page for the workspace");
 
     public static final BooleanFlag ENABLE_TRANSIENT_TASKBAR = getDebugFlag(270395798,
-            "ENABLE_TRANSIENT_TASKBAR", true, "Enables transient taskbar.");
+            "ENABLE_TRANSIENT_TASKBAR", false, "Enables transient taskbar.");
 
     public static final BooleanFlag SECONDARY_DRAG_N_DROP_TO_PIN = getDebugFlag(270395140,
             "SECONDARY_DRAG_N_DROP_TO_PIN", false,
@@ -366,7 +366,7 @@ public final class FeatureFlags {
     );
 
     public static final BooleanFlag ENABLE_TASKBAR_EDU_TOOLTIP = getDebugFlag(270396268,
-            "ENABLE_TASKBAR_EDU_TOOLTIP", true,
+            "ENABLE_TASKBAR_EDU_TOOLTIP", false,
             "Enable the tooltip version of the Taskbar education flow.");
 
     public static final BooleanFlag ENABLE_MULTI_INSTANCE = getDebugFlag(270396680,
