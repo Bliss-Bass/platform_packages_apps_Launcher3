@@ -141,6 +141,11 @@ public class TaskbarManager {
         mContext = service.createWindowContext(display, TYPE_NAVIGATION_BAR_PANEL, null);
         mNavButtonController = new TaskbarNavButtonController(service,
                 SystemUiProxy.INSTANCE.get(mContext), new Handler());
+        // Check if the property persist.bliss.disable_taskbar is true
+        boolean disableTaskbar = SystemProperties.getBoolean("persist.bliss.disable_taskbar", false);
+        if (disableTaskbar) {
+            destroyExistingTaskbar();
+        }
         mUserSetupCompleteListener = isUserSetupComplete -> recreateTaskbar();
         mNavBarKidsModeListener = isNavBarKidsMode -> recreateTaskbar();
         // TODO(b/227669780): Consolidate this w/ DisplayController callbacks
