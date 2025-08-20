@@ -357,33 +357,37 @@ public class TaskbarManager {
      */
     @VisibleForTesting
     public void recreateTaskbar() {
-        DeviceProfile dp = mUserUnlocked ?
-                LauncherAppState.getIDP(mContext).getDeviceProfile(mContext) : null;
+        // Check if the property persist.bliss.disable_taskbar is true
+        boolean disableTaskbar = SystemProperties.getBoolean("persist.bliss.disable_taskbar", false);
+        if (!disableTaskbar) {
+            DeviceProfile dp = mUserUnlocked ?
+                    LauncherAppState.getIDP(mContext).getDeviceProfile(mContext) : null;
 
-        destroyExistingTaskbar();
+            destroyExistingTaskbar();
 
-        boolean isTaskbarEnabled = dp != null && isTaskbarPresent(dp);
-        debugWhyTaskbarNotDestroyed("recreateTaskbar: isTaskbarEnabled=" + isTaskbarEnabled
-                + " [dp != null (i.e. mUserUnlocked)]=" + (dp != null)
-                + " FLAG_HIDE_NAVBAR_WINDOW=" + FLAG_HIDE_NAVBAR_WINDOW
-                + " dp.isTaskbarPresent=" + (dp == null ? "null" : dp.isTaskbarPresent));
-        if (!isTaskbarEnabled) {
-            SystemUiProxy.INSTANCE.get(mContext)
-                    .notifyTaskbarStatus(/* visible */ false, /* stashed */ false);
-            return;
-        }
+            boolean isTaskbarEnabled = dp != null && isTaskbarPresent(dp);
+            debugWhyTaskbarNotDestroyed("recreateTaskbar: isTaskbarEnabled=" + isTaskbarEnabled
+                    + " [dp != null (i.e. mUserUnlocked)]=" + (dp != null)
+                    + " FLAG_HIDE_NAVBAR_WINDOW=" + FLAG_HIDE_NAVBAR_WINDOW
+                    + " dp.isTaskbarPresent=" + (dp == null ? "null" : dp.isTaskbarPresent));
+            if (!isTaskbarEnabled) {
+                SystemUiProxy.INSTANCE.get(mContext)
+                        .notifyTaskbarStatus(/* visible */ false, /* stashed */ false);
+                return;
+            }
 
-        if (mTaskbarActivityContext == null) {
-            mTaskbarActivityContext = new TaskbarActivityContext(mContext, dp, mNavButtonController,
-                    mUnfoldProgressProvider);
-        } else {
-            mTaskbarActivityContext.updateDeviceProfile(dp, mNavMode);
-        }
-        mTaskbarActivityContext.init(mSharedState);
+            if (mTaskbarActivityContext == null) {
+                mTaskbarActivityContext = new TaskbarActivityContext(mContext, dp, mNavButtonController,
+                        mUnfoldProgressProvider);
+            } else {
+                mTaskbarActivityContext.updateDeviceProfile(dp, mNavMode);
+            }
+            mTaskbarActivityContext.init(mSharedState);
 
-        if (mActivity != null) {
-            mTaskbarActivityContext.setUIController(
-                    createTaskbarUIControllerForActivity(mActivity));
+            if (mActivity != null) {
+                mTaskbarActivityContext.setUIController(
+                        createTaskbarUIControllerForActivity(mActivity));
+            }
         }
     }
 
