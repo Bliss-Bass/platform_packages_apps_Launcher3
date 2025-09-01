@@ -47,6 +47,9 @@ import android.hardware.display.DisplayManager;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Trace;
+
+import android.os.SystemProperties;
+
 import android.provider.Settings;
 import android.util.Log;
 import android.view.Display;
@@ -235,6 +238,11 @@ public class TaskbarManager implements OnSharedPreferenceChangeListener {
                 ? context.createWindowContext(display, TYPE_NAVIGATION_BAR_PANEL, null)
                 : null;
         mDesktopVisibilityController = desktopVisibilityController;
+        // Check if the property persist.bliss.disable_taskbar is true
+        boolean disableTaskbar = SystemProperties.getBoolean("persist.bliss.disable_taskbar", false);
+        if (disableTaskbar) {
+            destroyExistingTaskbar();
+        }
         if (enableTaskbarNoRecreate()) {
             mWindowManager = mContext.getSystemService(WindowManager.class);
             mTaskbarRootLayout = new FrameLayout(mContext) {
