@@ -490,53 +490,57 @@ public class TaskbarManager implements OnSharedPreferenceChangeListener {
 
         Trace.beginSection("recreateTaskbar");
         try {
-            DeviceProfile dp = mUserUnlocked ?
-                LauncherAppState.getIDP(mContext).getDeviceProfile(mContext) : null;
+            // Check if the property persist.bliss.disable_taskbar is true
+            boolean disableTaskbar = SystemProperties.getBoolean("persist.bliss.disable_taskbar", false);
+            if (!disableTaskbar) {
+                DeviceProfile dp = mUserUnlocked ?
+                    LauncherAppState.getIDP(mContext).getDeviceProfile(mContext) : null;
 
-            // All Apps action is unrelated to navbar unification, so we only need to check DP.
-            final boolean isLargeScreenTaskbar = dp != null && dp.isTaskbarPresent;
-            mAllAppsActionManager.setTaskbarPresent(isLargeScreenTaskbar);
+                // All Apps action is unrelated to navbar unification, so we only need to check DP.
+                final boolean isLargeScreenTaskbar = dp != null && dp.isTaskbarPresent;
+                mAllAppsActionManager.setTaskbarPresent(isLargeScreenTaskbar);
 
-            destroyExistingTaskbar();
+                destroyExistingTaskbar();
 
-            boolean isTaskbarEnabled = dp != null && isTaskbarEnabled(dp);
-            debugWhyTaskbarNotDestroyed("recreateTaskbar: isTaskbarEnabled=" + isTaskbarEnabled
-                + " [dp != null (i.e. mUserUnlocked)]=" + (dp != null)
-                + " FLAG_HIDE_NAVBAR_WINDOW=" + ENABLE_TASKBAR_NAVBAR_UNIFICATION
-                + " dp.isTaskbarPresent=" + (dp == null ? "null" : dp.isTaskbarPresent));
-            if (!isTaskbarEnabled || !isLargeScreenTaskbar) {
-                SystemUiProxy.INSTANCE.get(mContext)
-                    .notifyTaskbarStatus(/* visible */ false, /* stashed */ false);
-                if (!isTaskbarEnabled) {
-                    return;
+                boolean isTaskbarEnabled = dp != null && isTaskbarEnabled(dp);
+                debugWhyTaskbarNotDestroyed("recreateTaskbar: isTaskbarEnabled=" + isTaskbarEnabled
+                    + " [dp != null (i.e. mUserUnlocked)]=" + (dp != null)
+                    + " FLAG_HIDE_NAVBAR_WINDOW=" + ENABLE_TASKBAR_NAVBAR_UNIFICATION
+                    + " dp.isTaskbarPresent=" + (dp == null ? "null" : dp.isTaskbarPresent));
+                if (!isTaskbarEnabled || !isLargeScreenTaskbar) {
+                    SystemUiProxy.INSTANCE.get(mContext)
+                        .notifyTaskbarStatus(/* visible */ false, /* stashed */ false);
+                    if (!isTaskbarEnabled) {
+                        return;
+                    }
                 }
-            }
 
-        SystemUiProxy sysui = SystemUiProxy.INSTANCE.get(mContext);
-        sysui.setTaskbarEnabled(isTaskbarEnabled);
+                SystemUiProxy sysui = SystemUiProxy.INSTANCE.get(mContext);
+                sysui.setTaskbarEnabled(isTaskbarEnabled);
 
-            if (enableTaskbarNoRecreate() || mTaskbarActivityContext == null) {
-                mTaskbarActivityContext = new TaskbarActivityContext(mContext,
-                        mNavigationBarPanelContext, dp, mNavButtonController,
-                        mUnfoldProgressProvider, mDesktopVisibilityController);
-            } else {
-                mTaskbarActivityContext.updateDeviceProfile(dp);
-            }
-            mSharedState.startTaskbarVariantIsTransient =
-                    DisplayController.isTransientTaskbar(mTaskbarActivityContext);
-            mSharedState.allAppsVisible = mSharedState.allAppsVisible && isLargeScreenTaskbar;
-            mTaskbarActivityContext.init(mSharedState);
+                if (enableTaskbarNoRecreate() || mTaskbarActivityContext == null) {
+                    mTaskbarActivityContext = new TaskbarActivityContext(mContext,
+                            mNavigationBarPanelContext, dp, mNavButtonController,
+                            mUnfoldProgressProvider, mDesktopVisibilityController);
+                } else {
+                    mTaskbarActivityContext.updateDeviceProfile(dp);
+                }
+                mSharedState.startTaskbarVariantIsTransient =
+                        DisplayController.isTransientTaskbar(mTaskbarActivityContext);
+                mSharedState.allAppsVisible = mSharedState.allAppsVisible && isLargeScreenTaskbar;
+                mTaskbarActivityContext.init(mSharedState);
 
-            if (mActivity != null) {
-                mTaskbarActivityContext.setUIController(
-                    createTaskbarUIControllerForActivity(mActivity));
-            }
+                if (mActivity != null) {
+                    mTaskbarActivityContext.setUIController(
+                        createTaskbarUIControllerForActivity(mActivity));
+                }
 
-            if (enableTaskbarNoRecreate()) {
-                addTaskbarRootViewToWindow();
-                mTaskbarRootLayout.removeAllViews();
-                mTaskbarRootLayout.addView(mTaskbarActivityContext.getDragLayer());
-                mTaskbarActivityContext.notifyUpdateLayoutParams();
+                if (enableTaskbarNoRecreate()) {
+                    addTaskbarRootViewToWindow();
+                    mTaskbarRootLayout.removeAllViews();
+                    mTaskbarRootLayout.addView(mTaskbarActivityContext.getDragLayer());
+                    mTaskbarActivityContext.notifyUpdateLayoutParams();
+                }
             }
         } finally {
             Trace.endSection();
